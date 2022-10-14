@@ -53,7 +53,14 @@ public class MyScanner {
 	}
 
 	private boolean checkForNumber(char c) {
-		return (Character.isDigit(c) || c == '-' || c == '+');
+		return (Character.isDigit(c) ||
+                ((int)'a' <= (int)c && (int)c <= (int)'j') ||
+                (c == '-' || c == '+') ||
+                (c == 'o' || c == 'O'));
+	}
+
+	private char convert(char c) {
+		return (char)((int)c - (int)'a' + (int)'0');
 	}
 
 	private String next(int type) throws IOException, IllegalStateException, NoSuchElementException { // 0 - word, 1 - number
@@ -73,6 +80,11 @@ public class MyScanner {
 			}
 
 			if (ok) {
+				if (type == 1) {
+					if ((int)'a' <= (int)c && (int)c <= (int)'j') {
+						c = convert(c);
+					}
+				}
 				sb.append(c);
 			}
 			else {
@@ -87,7 +99,13 @@ public class MyScanner {
 	}
 
 	public int nextInt() throws NumberFormatException, IOException, IllegalStateException, NoSuchElementException {
-		return Integer.parseInt(this.next(1));
+		String candidate = this.next(1).toLowerCase();
+		int radix = 10;
+		if (candidate.charAt(candidate.length() - 1) == 'o') {
+			candidate = candidate.substring(0, candidate.length() - 1);
+			radix = 8;
+		}
+		return Integer.parseInt(candidate, radix);
 	}
 
 	private boolean isNextLine() throws IllegalStateException, IOException, NoSuchElementException {

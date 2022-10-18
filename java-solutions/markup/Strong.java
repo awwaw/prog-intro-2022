@@ -3,11 +3,11 @@ package markup;
 import java.util.List;
 
 public class Strong extends AbstractText implements Markdown {
-    public Strong(List<Markdown> elements) {
-        super(elements, "__");
+    public Strong(List<AbstractText> elements) {
+        super(elements, "__", "\\textbf");
     }
 
     public Strong(String txt) {
-        super(txt, "__");
+        super(txt, "__", "\\textbf");
     }
 }

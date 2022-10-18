@@ -1,7 +1,11 @@
 package markup;
 
-public interface Markdown {
+public interface Markdown extends TexElement {
     void toMarkdown(StringBuilder sb);
 
-    String toString();
+    void toTex(StringBuilder sb);
+
+    String toMarkdownString();
+
+    String toTexString();
 }

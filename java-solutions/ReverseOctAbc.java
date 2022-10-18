@@ -13,7 +13,7 @@ public class ReverseOctAbc {
         return (char)((int)c - (int)'a' + (int)'0');
     }
 
-    private static int[] getNumbers(String line) {
+    private static int[] getNumbers(String line) throws IOException {
         if (line.length() == 0) {
             return new int[0];
         }
@@ -27,6 +27,7 @@ public class ReverseOctAbc {
         		numbers = Arrays.copyOf(numbers, (numbers.length * 3 + 1) / 2);
         	}
         	numbers[ptr++] = currentNum;
+        }
         StringBuilder num = new StringBuilder();
         for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
@@ -69,6 +70,7 @@ public class ReverseOctAbc {
             try {
                 while (sc.hasNextLine()) {
                     String line = sc.nextLine();
+                    System.err.println(line);
                     if (ptr >= lines.length) {
                         lines = Arrays.copyOf(lines, (lines.length * 3 + 1) / 2);
                     }
@@ -76,8 +78,14 @@ public class ReverseOctAbc {
                 }
                 for (int i = lines.length - 1; i >= 0; i--) {
                     if (lines[i] != null) {
-                        for (int num : lines[i]) {
-                            System.out.print(num + " ");
+                        if (lines[i].length == 0) {
+                            System.out.println();
+                            continue;
+                        }
+                        System.err.println(Arrays.toString(lines[i]));
+                        System.err.println("~~~~~");
+                        for (int j = 0; j < lines[i][lines[i].length - 1]; j++) {
+                            System.out.print(lines[i][j] + " ");
                         }
                         System.out.println("");
                     }

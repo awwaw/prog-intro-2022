@@ -2,16 +2,17 @@ import java.util.*;
 
 public class E_1 {
     private static int[] depth = new int[]{};
-    private static List<List<Integer>> graph = new ArrayList<>();
+    private static final List<List<Integer>> graph = new ArrayList<>();
     private static int[] p = new int[]{};
+
     private static void dfs(int v, int d, int par) {
-       depth[v] = d;
-       p[v] = par;
-       for (int u : graph.get(v)) {
-           if (depth[u] == -1) {
-               dfs(u, d + 1, v);
-           }
-       }
+        depth[v] = d;
+        p[v] = par;
+        for (int u : graph.get(v)) {
+            if (depth[u] == -1) {
+                dfs(u, d + 1, v);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class E_1 {
         int n, k;
         n = sc.nextInt();
         k = sc.nextInt();
-        depth = Arrays.copyOf(depth, n);
+        depth = new int[n];
         p = Arrays.copyOf(p, n);
         for (int i = 0; i < n; i++) {
             depth[i] = -1;
@@ -66,13 +67,14 @@ public class E_1 {
         }
 
         int v = path[path.length / 2];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             depth[i] = -1;
+        }
 
         dfs(v, 0, -1);
         boolean ok = true;
-        for (int i = 0; i < k; i++) {
-            ok &= (depth[cities[i] - 1] == depth[cities[0] - 1]);
+        for (int i = 0; i < k && ok; i++) {
+            ok = (depth[cities[i] - 1] == depth[cities[0] - 1]);
         }
         System.out.println((ok ? "YES\n" + (v + 1) : "NO"));
     }

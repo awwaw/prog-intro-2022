@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class E_1 {
     private static int[] depth = new int[]{};
     private static List<List<Integer>> graph = new ArrayList<>();
     private static int[] p = new int[]{};

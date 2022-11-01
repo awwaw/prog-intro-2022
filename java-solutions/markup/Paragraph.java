@@ -9,8 +9,10 @@ public class Paragraph implements ElementsSet, Markdown {
 
     public Paragraph(List<AbstractText> elements) {
         for (AbstractText el : elements) {
-            this.markdownText.append(el.toMarkdownString());
-            this.texText.append(el.toTexString());
+//            this.markdownText.append(el.toMarkdownString());
+//            this.texText.append(el.toTexString());
+            el.toTex(texText);
+            el.toMarkdown(markdownText);
         }
     }
 
@@ -20,17 +22,7 @@ public class Paragraph implements ElementsSet, Markdown {
     }
 
     @Override
-    public String toMarkdownString() {
-        return markdownText.toString();
-    }
-
-    @Override
     public void toTex(StringBuilder sb) {
         sb.append(texText);
-    }
-
-    @Override
-    public String toTexString() {
-        return texText.toString();
     }
 }

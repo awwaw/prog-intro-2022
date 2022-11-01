@@ -10,15 +10,11 @@ public abstract class AbstractList implements ElementsSet {
         this.environment = environment;
         txt.append("\\begin{").append(environment).append("}");
         for (ListItem el : elements) {
-            txt.append(el.toTexString()).append("");
+            // txt.append(el.toTexString());
+            el.toTex(txt);
         }
         txt.append("\\end{").append(environment).append("}");
     }
-
-    public String toTexString() {
-        return txt.toString();
-    }
-
     public void toTex(StringBuilder sb) {
         sb.append(txt);
     }

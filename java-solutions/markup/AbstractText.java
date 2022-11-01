@@ -20,8 +20,10 @@ public abstract class AbstractText implements Markdown {
         }
         if (elements.size() > 0) {
             for (AbstractText el : elements) {
-                this.markdownText.append(el.toMarkdownString());
-                this.texText.append(el.toTexString());
+                el.toMarkdown(markdownText);
+                el.toTex(texText);
+//                this.markdownText.append(el.toMarkdownString());
+//                this.texText.append(el.toTexString());
             }
         }
         else {
@@ -32,14 +34,6 @@ public abstract class AbstractText implements Markdown {
         if (texPrefix.length() > 0) {
             this.texText.append("}");
         }
-    }
-
-    public String toTexString() {
-        return this.texText.toString();
-    }
-
-    public String toMarkdownString() {
-        return this.markdownText.toString();
     }
 
     public void toMarkdown(StringBuilder sb) {

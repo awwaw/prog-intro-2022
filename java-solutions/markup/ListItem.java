@@ -13,12 +13,9 @@ public class ListItem implements TexElement {
     public ListItem(List<ElementsSet> elements) {
         txt.append("\\item ");
         for (ElementsSet el : elements) {
-            txt.append(el.toTexString());
+            // txt.append(el.toTexString());
+            el.toTex(txt);
         }
-    }
-
-    public String toTexString() {
-        return txt.toString();
     }
 
     public void toTex(StringBuilder sb) {

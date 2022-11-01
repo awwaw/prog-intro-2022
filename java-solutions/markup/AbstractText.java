@@ -26,7 +26,7 @@ public abstract class AbstractText implements Markdown {
         }
     }
 
-    protected AbstractText(List<AbstractText> elements, String markdownPrefix, String texPrefix) {
+    protected AbstractText(List<AbstractText> elements, String markdownPrefix, String texPrefix) { // NOTE копипаста
         this.markdownPrefix = markdownPrefix;
         this.texPrefix = texPrefix;
 

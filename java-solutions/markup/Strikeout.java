@@ -8,6 +8,6 @@ public class Strikeout extends AbstractText implements Markdown {
     }
 
     public Strikeout(String txt) {
-        super(List.of(), "~", "\\textst", "");
+        super(List.of(), "~", "\\textst", txt);
     }
 }

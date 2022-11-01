@@ -1,6 +1,7 @@
 package markup;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class AbstractText implements Markdown {
     protected StringBuilder markdownText = new StringBuilder();
@@ -8,25 +9,7 @@ public abstract class AbstractText implements Markdown {
     protected String markdownPrefix;
     protected String texPrefix;
 
-    protected AbstractText(String txt, String markdownPrefix, String texPrefix) {
-        this.markdownPrefix = markdownPrefix;
-        this.texPrefix = texPrefix;
-
-        this.markdownText.append(markdownPrefix);
-        this.markdownText.append(txt);
-        this.markdownText.append(markdownPrefix);
-
-        this.texText.append(texPrefix);
-        if (this.texPrefix.length() > 0) {
-            this.texText.append("{");
-        }
-        this.texText.append(txt);
-        if (texPrefix.length() > 0) {
-            this.texText.append("}");
-        }
-    }
-
-    protected AbstractText(List<AbstractText> elements, String markdownPrefix, String texPrefix) { // NOTE копипаста
+    protected AbstractText(List<AbstractText> elements, String markdownPrefix, String texPrefix, String text) { // NOTE копипаста
         this.markdownPrefix = markdownPrefix;
         this.texPrefix = texPrefix;
 
@@ -35,9 +18,15 @@ public abstract class AbstractText implements Markdown {
         if (this.texPrefix.length() > 0) {
             this.texText.append("{");
         }
-        for (AbstractText el : elements) {
-            this.markdownText.append(el.toMarkdownString());
-            this.texText.append(el.toTexString());
+        if (elements.size() > 0) {
+            for (AbstractText el : elements) {
+                this.markdownText.append(el.toMarkdownString());
+                this.texText.append(el.toTexString());
+            }
+        }
+        else {
+            this.markdownText.append(text);
+            this.texText.append(text);
         }
         this.markdownText.append(this.markdownPrefix);
         if (texPrefix.length() > 0) {

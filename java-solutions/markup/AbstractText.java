@@ -26,8 +26,6 @@ public abstract class AbstractText implements Markdown {
             for (AbstractText el : elements) {
                 el.toMarkdown(markdownText);
                 el.toTex(texText);
-//                this.markdownText.append(el.toMarkdownString());
-//                this.texText.append(el.toTexString());
             }
         } else {
             this.markdownText.append(text);

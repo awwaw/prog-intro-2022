@@ -8,6 +8,6 @@ public class Strong extends AbstractText implements Markdown {
     }
 
     public Strong(String txt) {
-        super(List.of(), "__", "\\textbf", txt);
+        super(List.of(new Text(txt)), "__", "\\textbf", txt);
     }
 }

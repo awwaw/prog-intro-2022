@@ -9,8 +9,6 @@ public class Paragraph implements ElementsSet, Markdown {
 
     public Paragraph(List<AbstractText> elements) {
         for (AbstractText el : elements) {
-//            this.markdownText.append(el.toMarkdownString());
-//            this.texText.append(el.toTexString());
             el.toTex(texText);
             el.toMarkdown(markdownText);
         }

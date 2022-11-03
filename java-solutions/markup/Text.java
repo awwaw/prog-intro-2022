@@ -2,14 +2,21 @@ package markup;
 
 import java.util.List;
 
-public class Text extends AbstractText implements Markdown {
-//    public Text(List<AbstractText> elements) {
-//        super(elements, "", "", "");
-//    }
+public class Text extends AbstractText {
+    private String text;
 
     public Text(String txt) {
-        super(List.of(), "", "", txt);
+        super(List.of(), "", "");
+        this.text = txt;
     }
 
-    // :NOTE: последний параметр лучше убрать, сделать сделать override
+    @Override
+    public void toMarkdown(StringBuilder sb) {
+        sb.append(text);
+    }
+
+    @Override
+    public void toTex(StringBuilder sb) {
+        sb.append(text);
+    }
 }

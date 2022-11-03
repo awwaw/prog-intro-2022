@@ -2,13 +2,8 @@ package markup;
 
 import java.util.List;
 
-public class Emphasis extends AbstractText implements Markdown {
+public class Emphasis extends AbstractText {
     public Emphasis(List<AbstractText> elements) {
-        super(elements, "*", "\\emph", "");
-    }
-
-    public Emphasis(String txt) {
-        super(List.of(), "*", "\\emph", txt);
-
+        super(elements, "*", "\\emph");
     }
 }

@@ -1,6 +1,5 @@
 package markup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Paragraph implements ElementsSet, Markdown {

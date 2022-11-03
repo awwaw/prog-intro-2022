@@ -2,12 +2,8 @@ package markup;
 
 import java.util.List;
 
-public class Strong extends AbstractText implements Markdown {
+public class Strong extends AbstractText {
     public Strong(List<AbstractText> elements) {
-        super(elements, "__", "\\textbf", "");
-    }
-
-    public Strong(String txt) {
-        super(List.of(new Text(txt)), "__", "\\textbf", txt);
+        super(elements, "__", "\\textbf");
     }
 }

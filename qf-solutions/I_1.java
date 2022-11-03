@@ -21,6 +21,6 @@ public class Main {
         int h = (Math.max(xr - xl, yr - yl) + 1) / 2;
         int x = (xl + xr) / 2;
         int y = (yl + yr) / 2;
-        System.out.println(x + " " + y + " " + h);
+        System.out.println(x + " " + y + " " + h)
     }
 }

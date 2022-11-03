@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class J_1 {
+public class Digits {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();

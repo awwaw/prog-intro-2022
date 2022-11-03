@@ -18,36 +18,33 @@ public class Highload {
             mx = Math.max(mx, transactions[i]);
             sum += transactions[i];
         }
-
-        int[] prefSum = new int[n];
-        prefSum[0] = transactions[0];
-        for (int i = 1; i < n; i++)
-            prefSum[i] = prefSum[i - 1] + transactions[i];
+        int[] num = new int[sum];
+        int cur = 0;
+        int rem = transactions[0];
+        for (int i = 0; i < sum; i++) {
+            if (i >= rem) {
+                rem += transactions[++cur];
+            }
+            num[i] = cur;
+        }
 
         for (int qu : queries) {
-            if (qu < mx) {
+            // System.out.println(qu + " " + mx);
+            if (mx > qu) {
                 System.out.println("Impossible");
                 continue;
             }
 
-            int cur = 0;
-            int a = 0;
+            int blocks = 0;
             int curSum = 0;
-            while (cur < n) {
-                int left = cur - 1;
-                int right = n;
-                while (right - left > 1) {
-                    int mid = (right + left) / 2;
-                    if (prefSum[mid] - curSum > qu)
-                        right = mid;
-                    else
-                        left = mid;
+            for (int i = 0; i < n; i++) {
+                curSum += transactions[i];
+                if (curSum > qu) {
+                    blocks++;
+                    curSum = transactions[i];
                 }
-                curSum = prefSum[left];
-                cur = left + 1;
-                a++;
             }
-            System.out.println(a);
+            System.out.println(blocks + 1);
         }
     }
 }

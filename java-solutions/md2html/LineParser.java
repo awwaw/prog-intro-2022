@@ -103,11 +103,4 @@ public class LineParser {
                 .append(parseString(mid)).append(htmlCloseTag)
                 .append(parseString(right));
     }
-
-    public static void main(String[] args) throws Exception {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        System.out.println(parseString(new StringBuilder(line)));
-        in.close();
-    }
 }

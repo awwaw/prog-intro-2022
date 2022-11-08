@@ -3,8 +3,8 @@ package markup;
 import java.util.List;
 
 public abstract class AbstractText implements Markdown {
-    protected String markdownPrefix;
-    protected String texPrefix;
+    private String markdownPrefix;
+    private String texPrefix;
     private List<AbstractText> elements;
 
     protected AbstractText(List<AbstractText> elements, String markdownPrefix, String texPrefix) {

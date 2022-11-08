@@ -26,6 +26,9 @@ public class Md2Html {
                     htmlCloseTag = "</p>\n";
                     text = element.getText();
                 }
+                // System.out.println("~~~~~~~~~~~~~~~~~~~~~");
+                // System.out.println(text);
+                // System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
                 result.append(htmlOpenTag)
                             .append(LineParser.parseString(text))
                             .append(htmlCloseTag);

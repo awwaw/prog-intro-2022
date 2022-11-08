@@ -6,7 +6,6 @@ public class Header extends MarkdownElement {
     Header(int level, String text) {
         this.level = level;
         this.text = text.substring(0, Math.max(text.length() - 1, 0));
-        this.type = "Header";
     }
 
     public int getLevel() {

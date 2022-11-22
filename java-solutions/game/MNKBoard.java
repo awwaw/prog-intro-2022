@@ -8,16 +8,26 @@ public class MNKBoard implements Board, Position {
     private static final Map<Cell, String> CELL_TO_STRING = Map.of(
             Cell.E, ".",
             Cell.X, "X",
-            Cell.O, "0"
+            Cell.O, "0",
+            Cell.A, "-",
+            Cell.B, "|",
+            Cell.C, "~"
     );
+
+    private final int[][] blocked = new int[][] {
+        {0, 0}, {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}, 
+        {8, 8}, {9, 9}, {10, 10},
+        {10, 0}, {9, 1}, {8, 2}, {7, 3}, {6, 4}, {4, 6}, {3, 7}, {2, 8}, {1, 9}, {0, 10}
+    };
 
     private final Cell[][] field;
     private Cell turn;
     private final int n;
     private final int m;
     private final int k;
+    private final int playersCount;
 
-    public MNKBoard(int n, int m, int k) {
+    public MNKBoard(int n, int m, int k, int playersCount, boolean block) {
         field = new Cell[n][m];
         for (Cell[] row : field) {
             Arrays.fill(row, Cell.E);
@@ -26,11 +36,37 @@ public class MNKBoard implements Board, Position {
         this.n = n;
         this.m = m;
         this.k = k;
+        this.playersCount = playersCount;
+        if (block) {
+            for (int[] pos : blocked) {
+                int x = pos[0];
+                int y = pos[1];
+                field[x][y] = Cell.C;
+            }
+        }
     }
 
     @Override
     public SafePosition getPosition() {
         return new SafePosition(this);
+    }
+
+    private Cell changeTurn(Cell turn) {
+        if (playersCount == 2) {
+            return turn == Cell.X ? Cell.O : Cell.X;
+        }
+        else if (playersCount == 3) {
+            if (turn == Cell.X) return Cell.O;
+            if (turn == Cell.O) return Cell.A;
+            if (turn == Cell.A) return Cell.X;
+        }
+        else if (playersCount == 4) {
+            if (turn == Cell.X) return Cell.O;
+            if (turn == Cell.O) return Cell.A;
+            if (turn == Cell.A) return Cell.B;
+            if (turn == Cell.B) return Cell.X;
+        }
+        return turn;
     }
 
     @Override
@@ -46,7 +82,7 @@ public class MNKBoard implements Board, Position {
             return Result.DRAW;
         }
 
-        turn = turn == Cell.X ? Cell.O : Cell.X;
+        turn = changeTurn(turn);
         return Result.UNKNOWN;
     }
 
@@ -121,7 +157,7 @@ public class MNKBoard implements Board, Position {
         return (0 <= move.getRow() && move.getRow() < n) &&
                 (0 <= move.getCol() && move.getCol() < m) &&
                 field[move.getRow()][move.getCol()] == Cell.E &&
-                turn == move.getTurn();
+                turn == move.getTurn() && field[move.getRow()][move.getCol()] != Cell.C;
     }
 
     @Override
@@ -140,5 +176,14 @@ public class MNKBoard implements Board, Position {
         }
         sb.append("-----------\n\n");
         return sb.toString();
+    }
+
+    @Override
+    public void clear() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                field[i][j] = Cell.E;
+            }
+        }
     }
 }

@@ -8,24 +8,34 @@ public class Main {
         int n = in.nextInt();
         int m = in.nextInt();
         int k = in.nextInt();
+        // Tournament tournament = new Tournament(
+        //         new MNKBoard(n, m, k, 2),
+        //         new Player[]{
+        //             new HumanPlayer(new Scanner(System.in)),
+        //             new HumanPlayer(new Scanner(System.in)), 
+        //             new HumanPlayer(new Scanner(System.in))
+        //         }
+        // );
+        // tournament.play(true);
+        // System.out.println(tournament.getResults());
+
+        int playersCount = in.nextInt();
         final int result = new Game(
-                new MNKBoard(n, m, k),
-                new HumanPlayer(new Scanner(System.in)),
-                new HumanPlayer(new Scanner(System.in))
+                new MNKBoard(n, m, k, playersCount, true),
+                new Player[] {
+                    new HumanPlayer(new Scanner(System.in)),
+                    new HumanPlayer(new Scanner(System.in)),
+                    new HumanPlayer(new Scanner(System.in))
+                }
         ).play(true);
-        switch (result) {
-            case 1:
-                System.out.println("First player won");
-                break;
-            case 2:
-                System.out.println("Second player won");
-                break;
-            case 0:
-                System.out.println("Draw");
-                break;
-            default:
-                throw new AssertionError("Unknown result " + result);
-        }
         in.close();
+        if (result != -5) {
+            if (result > 0) {
+                System.out.println(String.format("Player %d won", result - 1));
+            }
+            else if (result == 0) {
+                System.out.println("DRAW");
+            }
+        }
     }
 }

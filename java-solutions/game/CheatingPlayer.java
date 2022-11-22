@@ -1,4 +1,5 @@
-// package game;
+package game;
+// package MNKGame;
 
 // public class CheatingPlayer implements Player {
 //     @Override

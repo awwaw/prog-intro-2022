@@ -2,24 +2,20 @@ package game;
 
 public class Game {
     private final Board board;
-    private final Player player1;
-    private final Player player2;
+    private final Player[] players;
 
-    public Game(Board board, Player player1, Player player2) {
+    public Game(Board board, Player[] players) {
         this.board = board;
-        this.player1 = player1;
-        this.player2 = player2;
+        this.players = players;
     }
 
     public int play(boolean log) {
         while (true) {
-            final int result1 = makeMove(player1, 1, log);
-            if (result1 >= 0) {
-                return result1;
-            }
-            final int result2 = makeMove(player2, 2, log);
-            if (result2 >= 0) {
-                return result2;
+            for (int i = 0; i < players.length; i++) {
+                final int result = makeMove(players[i], i + 1, log);
+                if (result != -5) {
+                    return result;
+                }
             }
         }
     }
@@ -38,11 +34,11 @@ public class Game {
             case WIN:
                 return no;
             case LOSE:
-                return 3 - no;
+                return -no;
             case DRAW:
                 return 0;
             case UNKNOWN:
-                return -1;
+                return -5;
             default:
                 throw new AssertionError("Unknown makeMove result " + result);
         }

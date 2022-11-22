@@ -7,7 +7,10 @@ public class SafePosition implements Position {
     private static final Map<Cell, String> CELL_TO_STRING = Map.of(
             Cell.E, ".",
             Cell.X, "X",
-            Cell.O, "0"
+            Cell.O, "0",
+            Cell.A, "-",
+            Cell.B, "|",
+            Cell.C, "~"
     );
 
     private final Cell[][] field;

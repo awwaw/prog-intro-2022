@@ -1,4 +1,4 @@
-package MNKGame;
+package game;
 
 import java.util.Scanner;
 

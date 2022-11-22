@@ -1,4 +1,4 @@
-package MNKGame;
+package game;
 
 public interface Position {
     Cell getTurn();

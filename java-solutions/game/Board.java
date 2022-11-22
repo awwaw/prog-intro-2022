@@ -1,4 +1,4 @@
-package MNKGame;
+package game;
 
 public interface Board {
     SafePosition getPosition();

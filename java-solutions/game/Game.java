@@ -1,4 +1,4 @@
-package MNKGame;
+package game;
 
 public class Game {
     private final Board board;

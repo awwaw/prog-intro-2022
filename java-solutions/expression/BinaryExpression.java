@@ -40,7 +40,55 @@ public class BinaryExpression extends AbstractArgument {
         return sb.toString();
     }
 
-    public String toMiniString() {
+    private String processMinus() {
+        StringBuilder sb = new StringBuilder();
+        BinaryExpression expression = (BinaryExpression) ex2;
+        sb.append(ex1.toMiniString());
+        sb.append(" - ");
+        if (expression.priority == 2) {
+            sb.append("(" + expression.toMiniString() + ")");
+        }
+        else {
+            sb.append(expression.toMiniString());
+        }
+        return sb.toString();
+    }
+
+    private String addLeftArgument() {
+        StringBuilder sb = new StringBuilder();
+        if (ex1.getPriority() > priority) {
+            sb.append("(" + ex1.toMiniString() + ")");
+        }
+        else {
+            sb.append(ex1.toMiniString());
+        }
+        return sb.toString();
+    }
+
+    private String processMultiply() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(addLeftArgument());
+        sb.append(" * ");
+        BinaryExpression expression = (BinaryExpression) ex2;
+        if (expression.symbol != '*') {
+            sb.append("(" + expression.toMiniString() + ")");
+        }
+        else {
+            sb.append(expression.toMiniString());
+        }
+        return sb.toString();
+    }
+
+    private String processDivide() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(addLeftArgument());
+        sb.append(" / ");
+        BinaryExpression expression = (BinaryExpression) ex2;
+        sb.append("(" + expression.toMiniString() + ")");
+        return sb.toString();
+    }
+
+    private String basicProcessing() {
         StringBuilder sb = new StringBuilder();
         if (ex1.getPriority() > priority) {
             sb.append("(" + ex1.toMiniString() + ")");
@@ -58,6 +106,22 @@ public class BinaryExpression extends AbstractArgument {
         return sb.toString();
     }
 
+    public String toMiniString() {
+        if (ex2 instanceof BinaryExpression expression) {
+            switch (symbol) {
+                case '-':
+                    return processMinus();
+                case '*':
+                    return processMultiply();
+                case '/':
+                    return processDivide();
+                default:
+                    return basicProcessing();
+            }
+        }
+        return basicProcessing();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -66,7 +130,8 @@ public class BinaryExpression extends AbstractArgument {
         if (other == null || other.getClass() != getClass()) {
             return false;
         }
-        return ex1.equals(((BinaryExpression) other).ex1) && ex2.equals(((BinaryExpression) other).ex2);
+        return ex1.equals(((BinaryExpression) other).ex1) &&
+                 ex2.equals(((BinaryExpression) other).ex2);
     }
 
     @Override

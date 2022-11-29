@@ -11,7 +11,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public Move makeMove(SafePosition position) {
+    public Move makeMove(SafePosition position) { // :NOTE: игрок может начатть ходить препятсивями
         System.out.println();
         System.out.println("Current position");
         System.out.println(position);
@@ -38,7 +38,7 @@ public class HumanPlayer implements Player {
     }
 
     private boolean isCorrectInput(String inputLine) {
-        Pattern pattern = Pattern.compile("-?\\d+ -?\\d+");
+        Pattern pattern = Pattern.compile("-?\\d+ -?\\d+"); // :NOTE: когда 0-1 корректно?
         return pattern.matcher(inputLine).matches();
     }
 

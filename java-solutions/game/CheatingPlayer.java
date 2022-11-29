@@ -1,4 +1,5 @@
 package game;
+// :NOTE: не надо закомментированный
 // package MNKGame;
 
 // public class CheatingPlayer implements Player {

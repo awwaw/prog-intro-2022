@@ -18,7 +18,7 @@ public class MNKBoard implements Board, Position {
         {0, 0}, {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}, 
         {8, 8}, {9, 9}, {10, 10},
         {10, 0}, {9, 1}, {8, 2}, {7, 3}, {6, 4}, {4, 6}, {3, 7}, {2, 8}, {1, 9}, {0, 10}
-    };
+    }; // :NOTE: почему хардкод?
 
     private final Cell[][] field;
     private Cell turn;

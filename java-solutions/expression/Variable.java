@@ -45,4 +45,23 @@ public class Variable extends AbstractArgument {
     public int hashCode() {
         return name.hashCode();
     }
+
+    @Override
+    public int evaluate(int x, int y, int z) {
+        switch (name) {
+            case "x":
+                return x;
+            case "y":
+                return y;
+            case "z":
+                return z;
+            default:
+                throw new IllegalArgumentException("Illegal vaiable name");
+        }
+    }
+
+    @Override
+    public double evaluate(double x) {
+        return x;
+    }
 }

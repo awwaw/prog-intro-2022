@@ -138,4 +138,40 @@ public class BinaryExpression extends AbstractArgument {
     public int hashCode() {
         return Objects.hash(ex1, ex2, symbol);
     }
+
+    @Override
+    public int evaluate(int x, int y, int z) {
+        final int leftValue = ex1.evaluate(x, y, z);
+        final int rightValue = ex2.evaluate(x, y, z);
+        switch (symbol) {
+            case '+':
+                return leftValue + rightValue;
+            case '-':
+                return leftValue - rightValue;
+            case '*':
+                return leftValue * rightValue;
+            case '/':
+                return leftValue / rightValue;
+            default:
+                throw new AssertionError("Unsupported arithmetic operation");
+        }
+    }
+
+    @Override
+    public double evaluate(double x) {
+        final double leftValue = ex1.evaluate(x);
+        final double rightValue = ex2.evaluate(x);
+        switch (symbol) {
+            case '+':
+                return leftValue + rightValue;
+            case '-':
+                return leftValue - rightValue;
+            case '*':
+                return leftValue * rightValue;
+            case '/':
+                return leftValue / rightValue;
+            default:
+                throw new AssertionError("Unsupported arithmetic operation");
+        }
+    }
 }

@@ -2,25 +2,42 @@ package expression;
 
 public class Const extends AbstractArgument {
     public final int value;
+    public final double doubleValue;
+    private final boolean doubleType;
     public final int priority;
 
     public Const(int value) {
         this.value = value;
+        doubleValue = 0;
         priority = -1;
+        doubleType = false;
+    }
+
+    public Const(double value) {
+        doubleValue = value;
+        this.value = 0;
+        priority = -1;
+        doubleType = true;
     }
 
     @Override
-    public int evaluate(int value) { // TODO: разобраться с этим аргументом
+    public int evaluate(int value) {
         return this.value;
     }
 
     @Override
     public String toString() {
+        if (doubleType) {
+            return String.valueOf(doubleValue);
+        }
         return String.valueOf(value);
     }
 
     @Override
     public String toMiniString() {
+        if (doubleType) {
+            return String.valueOf(doubleValue);
+        }
         return String.valueOf(value);
     }
 
@@ -33,6 +50,9 @@ public class Const extends AbstractArgument {
             return false;
         }
         Const o = (Const) other;
+        if (doubleType) {
+            return doubleValue == o.doubleValue;
+        }
         return value == o.value;
     }
 
@@ -43,6 +63,19 @@ public class Const extends AbstractArgument {
 
     @Override
     public int hashCode() {
+        if (doubleType) {
+            return Double.hashCode(doubleValue);
+        }
         return Integer.hashCode(value);
+    }
+
+    @Override
+    public int evaluate(int x, int y, int z) {
+        return value;
+    }
+
+    @Override
+    public double evaluate(double x) {
+        return doubleValue;
     }
 }

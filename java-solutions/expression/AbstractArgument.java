@@ -1,6 +1,6 @@
 package expression;
 
-public abstract class AbstractArgument implements Expression {
+public abstract class AbstractArgument implements Expression, TripleExpression, DoubleExpression {
     protected int priority;
 
     public int getPriority() {

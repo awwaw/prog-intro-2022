@@ -19,6 +19,7 @@ public class Main {
         // tournament.play(true);
         // System.out.println(tournament.getResults());
 
+        // :NOTE: не могу запустить и посмотреть
         int playersCount = in.nextInt();
         final int result = new Game(
                 new MNKBoard(n, m, k, playersCount, true),

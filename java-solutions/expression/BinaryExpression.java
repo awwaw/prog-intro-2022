@@ -2,7 +2,7 @@ package expression;
 
 import java.util.Objects;
 
-public class BinaryExpression extends AbstractArgument {
+public abstract class BinaryExpression extends AbstractArgument {
     protected final char symbol;
     private final AbstractArgument ex1;
     private final AbstractArgument ex2;
@@ -14,22 +14,11 @@ public class BinaryExpression extends AbstractArgument {
         this.symbol = symbol;
     }
 
+    protected abstract int operate(int a, int b);
+
     @Override
     public int evaluate(int point) {
-        final int leftValue = ex1.evaluate(point);
-        final int rightValue = ex2.evaluate(point);
-        switch (symbol) {
-            case '+':
-                return leftValue + rightValue;
-            case '-':
-                return leftValue - rightValue;
-            case '*':
-                return leftValue * rightValue;
-            case '/':
-                return leftValue / rightValue;
-            default:
-                throw new AssertionError("Unsupported arithmetic operation");
-        }
+        return operate(ex1.evaluate(point), ex2.evaluate(point));
     }
 
     public String toString() {

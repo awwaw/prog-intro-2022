@@ -9,5 +9,7 @@ public abstract class AbstractArgument implements Expression, TripleExpression, 
 
     public abstract boolean equals(Object other);
 
+    protected abstract int operate(int a, int b);
+
     public abstract int hashCode();
 }

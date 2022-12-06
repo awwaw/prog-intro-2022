@@ -64,4 +64,10 @@ public class Variable extends AbstractArgument {
     public double evaluate(double x) {
         return x;
     }
+
+    @Override
+    protected int operate(int a, int b) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

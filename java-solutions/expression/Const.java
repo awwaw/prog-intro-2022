@@ -78,4 +78,10 @@ public class Const extends AbstractArgument {
     public double evaluate(double x) {
         return doubleValue;
     }
+
+    @Override
+    protected int operate(int a, int b) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

@@ -3,7 +3,7 @@ package expression;
 public class Add extends BinaryExpression {
 
     public Add(AbstractArgument ex1, AbstractArgument ex2) {
-        super(ex1, ex2, 2, '+');
+        super(ex1, ex2, 2, '+', true);
     }
 
     @Override
@@ -11,4 +11,8 @@ public class Add extends BinaryExpression {
         return a + b;
     }
     
+    @Override
+    protected double operate(double a, double b) {
+        return a + b;
+    }
 }

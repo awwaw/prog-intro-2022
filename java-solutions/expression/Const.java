@@ -11,6 +11,7 @@ public class Const extends AbstractArgument {
         doubleValue = 0;
         priority = -1;
         doubleType = false;
+        isAssociative = true;
     }
 
     public Const(double value) {
@@ -81,6 +82,12 @@ public class Const extends AbstractArgument {
 
     @Override
     protected int operate(int a, int b) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    protected double operate(double a, double b) {
         // TODO Auto-generated method stub
         return 0;
     }

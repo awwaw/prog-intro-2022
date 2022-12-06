@@ -7,14 +7,20 @@ public abstract class BinaryExpression extends AbstractArgument {
     private final AbstractArgument ex1;
     private final AbstractArgument ex2;
 
-    public BinaryExpression(AbstractArgument ex1, AbstractArgument ex2, int priority, char symbol) {
+    public BinaryExpression(AbstractArgument ex1,
+                             AbstractArgument ex2,
+                              int priority,
+                               char symbol,
+                               boolean isAssociative) {
         this.ex1 = ex1;
         this.ex2 = ex2;
         this.priority = priority;
         this.symbol = symbol;
+        this.isAssociative = isAssociative;
     }
 
     protected abstract int operate(int a, int b);
+    protected abstract double operate(double a, double b);
 
     @Override
     public int evaluate(int point) {
@@ -29,86 +35,40 @@ public abstract class BinaryExpression extends AbstractArgument {
         return sb.toString();
     }
 
-    private String processMinus() {
+    public String toMiniString() {
+        int p1 = ex1.getPriority();
+        int p2 = ex2.getPriority();
+        int p = this.getPriority();
         StringBuilder sb = new StringBuilder();
-        BinaryExpression expression = (BinaryExpression) ex2;
-        sb.append(ex1.toMiniString());
-        sb.append(" - ");
-        if (expression.priority == 2) {
-            sb.append("(" + expression.toMiniString() + ")");
-        }
-        else {
-            sb.append(expression.toMiniString());
-        }
-        return sb.toString();
-    }
-
-    private String addLeftArgument() {
-        StringBuilder sb = new StringBuilder();
-        if (ex1.getPriority() > priority) {
-            sb.append("(" + ex1.toMiniString() + ")");
-        }
-        else {
+        if (p1 == -1 || p == 2 || (p == 1 && p1 == 1)) {
             sb.append(ex1.toMiniString());
         }
-        return sb.toString();
-    }
-
-    private String processMultiply() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(addLeftArgument());
-        sb.append(" * ");
-        BinaryExpression expression = (BinaryExpression) ex2;
-        if (expression.symbol != '*') {
-            sb.append("(" + expression.toMiniString() + ")");
-        }
         else {
-            sb.append(expression.toMiniString());
-        }
-        return sb.toString();
-    }
-
-    private String processDivide() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(addLeftArgument());
-        sb.append(" / ");
-        BinaryExpression expression = (BinaryExpression) ex2;
-        sb.append("(" + expression.toMiniString() + ")");
-        return sb.toString();
-    }
-
-    private String basicProcessing() {
-        StringBuilder sb = new StringBuilder();
-        if (ex1.getPriority() > priority) {
             sb.append("(" + ex1.toMiniString() + ")");
-        }
-        else {
-            sb.append(ex1.toMiniString());
         }
         sb.append(String.format(" %c ", symbol));
-        if (ex2.getPriority() > priority) {
-            sb.append("(" + ex2.toMiniString() + ")");
-        }
-        else {
-            sb.append(ex2.toMiniString());
-        }
-        return sb.toString();
-    }
-
-    public String toMiniString() {
-        if (ex2 instanceof BinaryExpression expression) {
-            switch (symbol) {
-                case '-':
-                    return processMinus();
-                case '*':
-                    return processMultiply();
-                case '/':
-                    return processDivide();
-                default:
-                    return basicProcessing();
+        if (this.isAssociative) {
+            if (symbol == '*') {
+                if (p2 < 0 || (ex2.isAssociative && p2 == p)) {
+                    sb.append(ex2.toMiniString());
+                }
+                else {
+                    sb.append("(" + ex2.toMiniString() + ")");
+                }
+            }
+            else {
+                sb.append(ex2.toMiniString());
             }
         }
-        return basicProcessing();
+        else {
+            if (p2 >= p) {
+                sb.append("(" + ex2.toMiniString() + ")");
+            }
+            else {
+                sb.append(ex2.toMiniString());
+            }
+        }
+        return sb.toString();
     }
 
     @Override
@@ -130,37 +90,11 @@ public abstract class BinaryExpression extends AbstractArgument {
 
     @Override
     public int evaluate(int x, int y, int z) {
-        final int leftValue = ex1.evaluate(x, y, z);
-        final int rightValue = ex2.evaluate(x, y, z);
-        switch (symbol) {
-            case '+':
-                return leftValue + rightValue;
-            case '-':
-                return leftValue - rightValue;
-            case '*':
-                return leftValue * rightValue;
-            case '/':
-                return leftValue / rightValue;
-            default:
-                throw new AssertionError("Unsupported arithmetic operation");
-        }
+        return operate(ex1.evaluate(x, y, z), ex2.evaluate(x, y, z));
     }
 
     @Override
     public double evaluate(double x) {
-        final double leftValue = ex1.evaluate(x);
-        final double rightValue = ex2.evaluate(x);
-        switch (symbol) {
-            case '+':
-                return leftValue + rightValue;
-            case '-':
-                return leftValue - rightValue;
-            case '*':
-                return leftValue * rightValue;
-            case '/':
-                return leftValue / rightValue;
-            default:
-                throw new AssertionError("Unsupported arithmetic operation");
-        }
+        return operate(ex1.evaluate(x), ex2.evaluate(x));
     }
 }

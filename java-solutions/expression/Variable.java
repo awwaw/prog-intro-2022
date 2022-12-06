@@ -7,6 +7,7 @@ public class Variable extends AbstractArgument {
     public Variable(String name) {
         this.name = name;
         priority = -1;
+        isAssociative = true;
     }
 
     @Override
@@ -67,6 +68,12 @@ public class Variable extends AbstractArgument {
 
     @Override
     protected int operate(int a, int b) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    protected double operate(double a, double b) {
         // TODO Auto-generated method stub
         return 0;
     }

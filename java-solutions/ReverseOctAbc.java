@@ -44,7 +44,7 @@ public class ReverseOctAbc {
 		                for (int num : lines[i]) {
 		                    System.out.print(num + " ");
 		                }
-		                System.out.println();
+		                System.out.println("");
 		            }
 		        }
 		    }

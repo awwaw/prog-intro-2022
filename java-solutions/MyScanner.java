@@ -125,11 +125,9 @@ public class MyScanner {
 	private boolean isNextLine() throws IllegalStateException, IOException, NoSuchElementException {
 		if (buffer[index] == '\r') {
 			if (this.hasNextChar()) {
-				index++;
-				if (buffer[index] == '\n') {
-					// if (this.hasNextChar()) {
-					// 	this.index++;
-					// }
+				// index++;
+				if (buffer[index + 1] == '\n') {
+					index++;
 					return true;
 				}
 			}
@@ -139,9 +137,6 @@ public class MyScanner {
 					buffer[index] == '\u2028' ||
 					buffer[index] == '\u2029' ||
 					buffer[index] == '\u0085') {
-			// if (this.hasNextChar()) {
-			// 	this.index++;
-			// }
 			return true;
 		}
 		return false;
